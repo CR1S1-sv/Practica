@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playground Gaming</title>
+  <link rel="stylesheet" href="style.css">
+
+<style>
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+}
+.popup-content {
+  background-color: #111;
+  padding: 30px;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: 0 0 20px #00ffff;
+}
+.popup-content h2 {
+  margin-top: 0;
+  color: white;
+}
+.popup-content input, .popup-content button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+}
+.btn-neon {
+  background-color: #00ffff;
+  color: black;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close {
+  float: right;
+  color: red;
+  cursor: pointer;
+  font-size: 20px;
+}
+.support-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #111;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 0 15px #0ff;
+}
+.support-panel {
+  display: none;
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  background-color: #222;
+  padding: 15px;
+  border-radius: 10px;
+  width: 250px;
+  z-index: 999;
+  color: white;
+}
+</style>
+
+
+<style>
+.topbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.85);
+}
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
+.auth-buttons button {
+  margin-left: 10px;
+  padding: 6px 14px;
+  border: none;
+  background: #00ffff;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #00ffff;
+}
+.auth-buttons button:hover {
+  background: #0ff;
+}
+</style>
+
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">Playground Gaming</div>
+  <div class="auth-buttons">
+    <button onclick="openPopup('register')">Înregistrare</button>
+    <button onclick="openPopup('login')">Logare</button>
+    <button onclick="logout()">Logout</button>
+  </div>
+</div>
+
+  <div class="parallax-bg" id="parallax-bg"></div>
+  <header class="navbar">
+    <h1 class="glow">Playground Gaming</h1>
+  </header>
+
+  <main>
+    <h2 class="section-title">Jocuri + Moduri reale</h2>
+    <div class="cards">
+    <div class="card" style="box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033">
+      <h3><a href="https://www.activision.com/games/prototype/prototype" target="_blank" style="color:#ff0033">Prototype</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.moddb.com/mods/prototype-ultimate-power" target="_blank">Ultimate Power Mod</a></li><li><a href="https://www.moddb.com/mods/blackwatch-prototype" target="_blank">Blackwatch Enhancement</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #00ff99, 0 0 30px #00ff99">
+      <h3><a href="https://www.ubisoft.com/game/far-cry" target="_blank" style="color:#00ff99">Far Cry</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.moddb.com/mods/farcry-redux" target="_blank">Redux Mod</a></li><li><a href="https://www.moddb.com/mods/mergmod" target="_blank">MergMod</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #ffffff, 0 0 30px #ffffff">
+      <h3><a href="https://www.ubisoft.com/game/assassins-creed" target="_blank" style="color:#ffffff">Assassin’s Creed</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.nexusmods.com/assassinscreed/mods/1" target="_blank">Visual Overhaul</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #007bff, 0 0 30px #007bff">
+      <h3><a href="https://www.callofduty.com/" target="_blank" style="color:#007bff">Call of Duty</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.moddb.com/mods/frontlines-r3l04d" target="_blank">Frontlines R3L04D</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff">
+      <h3><a href="https://www.ea.com/games/crysis" target="_blank" style="color:#00ffff">Crysis</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.moddb.com/mods/crysis-enhanced-edition" target="_blank">Enhanced Edition</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff">
+      <h3><a href="https://www.cyberpunk.net/" target="_blank" style="color:#ff00ff">Cyberpunk 2077</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.nexusmods.com/cyberpunk2077/mods/241" target="_blank">E3 2018 HUD</a></li><li><a href="https://www.nexusmods.com/cyberpunk2077/mods/3312" target="_blank">Car Customizer</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #ff1100, 0 0 30px #ff1100">
+      <h3><a href="https://slayersclub.bethesda.net/en/game/doom" target="_blank" style="color:#ff1100">DOOM Eternal</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.moddb.com/mods/doom-eternal-weapon-reworks" target="_blank">Weapon Reworks</a></li><li><a href="https://www.moddb.com/mods/classic-doom-eternal" target="_blank">Classic Mod</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #aa00ff, 0 0 30px #aa00ff">
+      <h3><a href="https://thewitcher.com/en/witcher3" target="_blank" style="color:#aa00ff">The Witcher 3</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.nexusmods.com/witcher3/mods/1021" target="_blank">HD Reworked Project</a></li><li><a href="https://www.nexusmods.com/witcher3/mods/15" target="_blank">Fast Travel from Anywhere</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #00ffcc, 0 0 30px #00ffcc">
+      <h3><a href="https://www.rockstargames.com/V/" target="_blank" style="color:#00ffcc">GTA V</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.lcpdfr.com/files/file/7792-lspd-first-response/" target="_blank">LSPDFR</a></li><li><a href="https://www.gta5-mods.com/misc/visualv" target="_blank">VisualV</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #ffaa00, 0 0 30px #ffaa00">
+      <h3><a href="https://www.half-life.com/en/half-life-2" target="_blank" style="color:#ffaa00">Half-Life 2</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.moddb.com/mods/minerva" target="_blank">Minerva: Metastasis</a></li><li><a href="https://www.moddb.com/mods/fakefactorys-cinematic-mod" target="_blank">Cinematic Mod</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #cc0000, 0 0 30px #cc0000">
+      <h3><a href="https://www.rockstargames.com/reddeadredemption2" target="_blank" style="color:#cc0000">Red Dead Redemption 2</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.nexusmods.com/reddeadredemption2/mods/21" target="_blank">Photorealistic ReShade</a></li><li><a href="https://www.nexusmods.com/reddeadredemption2/mods/69" target="_blank">Bank Robbery Mod</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #3399ff, 0 0 30px #3399ff">
+      <h3><a href="https://www.ea.com/games/battlefield/battlefield-5" target="_blank" style="color:#3399ff">Battlefield V</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.nexusmods.com/battlefieldv/mods/1" target="_blank">Realistic Effects</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #ff3333, 0 0 30px #ff3333">
+      <h3><a href="https://www.residentevil.com/re4/" target="_blank" style="color:#ff3333">Resident Evil 4 Remake</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.re4hd.com/" target="_blank">HD Project</a></li><li><a href="https://www.nexusmods.com/residentevil42023/mods/78" target="_blank">Ada Wong Black Dress</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #cccc00, 0 0 30px #cccc00">
+      <h3><a href="https://www.metrothegame.com/en-us/" target="_blank" style="color:#cccc00">Metro Exodus</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.nexusmods.com/metroexodus/mods/4" target="_blank">4A Weather Enhancer</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #ffee00, 0 0 30px #ffee00">
+      <h3><a href="https://en.bandainamcoent.eu/elden-ring/elden-ring" target="_blank" style="color:#ffee00">Elden Ring</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.nexusmods.com/eldenring/mods/14" target="_blank">Item Randomizer</a></li><li><a href="https://www.nexusmods.com/eldenring/mods/43" target="_blank">First Person Mode</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #666600, 0 0 30px #666600">
+      <h3><a href="https://www.darksouls3.com/us/" target="_blank" style="color:#666600">Dark Souls III</a></h3>
+      <ul class="game-modes-list"><li><a href="https://www.nexusmods.com/darksouls3/mods/310" target="_blank">Cinders Mod</a></li><li><a href="https://www.nexusmods.com/darksouls3/mods/353" target="_blank">Champion's Ashes</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #ff3366, 0 0 30px #ff3366">
+      <h3><a href="https://playvalorant.com/" target="_blank" style="color:#ff3366">Valorant</a></h3>
+      <ul class="game-modes-list"><li><a href="https://tracker.gg/valorant/guides/crosshair-codes" target="_blank">Crosshair Customizer</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #ffa500, 0 0 30px #ffa500">
+      <h3><a href="https://overwatch.blizzard.com/" target="_blank" style="color:#ffa500">Overwatch 2</a></h3>
+      <ul class="game-modes-list"><li><a href="https://workshop.codes/" target="_blank">Custom HUD Config</a></li></ul>
+    </div>
+    
+    <div class="card" style="box-shadow: 0 0 15px #cc9900, 0 0 30px #cc9900">
+  <h3><a href="https://www.stalker2.com/" target="_blank" style="color:#cc9900">S.T.A.L.K.E.R. 2</a></h3>
+  <ul class="game-modes-list">
+    <li><a href="https://www.moddb.com/mods/stalker-anomaly" target="_blank">Anomaly Mod</a></li>
+    <li><a href="https://www.moddb.com/mods/stcop-weapons-redux" target="_blank">GUNSLINGER Mod</a></li>
+  </ul>
+  </div>
+
+  <div class="card" style="box-shadow: 0 0 15px #00ccff, 0 0 30px #00ccff">
+  <h3><a href="https://www.halowaypoint.com/" target="_blank" style="color:#00ccff">Halo Infinite</a></h3>
+  <ul class="game-modes-list">
+    <li><a href="https://haloinfinite.tools/forge" target="_blank">Forge Mods</a></li>
+  </ul>
+</div>
+
+<div class="card" style="box-shadow: 0 0 15px #9999ff, 0 0 30px #9999ff">
+  <h3><a href="https://www.505games.com/games/death-stranding/" target="_blank" style="color:#9999ff">Death Stranding</a></h3>
+  <ul class="game-modes-list">
+    <li><a href="https://www.nexusmods.com/deathstranding/mods/1" target="_blank">Graphics Enhancement</a></li>
+  </ul>
+</div>
+
+<div class="card" style="box-shadow: 0 0 15px #336699, 0 0 30px #336699">
+  <h3><a href="https://www.paydaythegame.com/" target="_blank" style="color:#336699">PAYDAY 3</a></h3>
+  <ul class="game-modes-list">
+    <li><a href="https://modworkshop.net/" target="_blank">HUD Mods</a></li>
+    <li><a href="https://modworkshop.net/" target="_blank">Custom Heists</a></li>
+  </ul>
+</div>
+
+<div class="card" style="box-shadow: 0 0 15px #33cc99, 0 0 30px #33cc99">
+  <h3><a href="https://www.ubisoft.com/game/rainbow-six/siege" target="_blank" style="color:#33cc99">Rainbow Six Siege</a></h3>
+  <ul class="game-modes-list">
+    <li><a href="https://github.com/darkfogworks/r6-crosshair" target="_blank">Custom Crosshair</a></li>
+  </ul>
+  </div>
+  <div class="card" style="box-shadow: 0 0 15px #ff3366, 0 0 30px #ff3366">
+      <h3><a href="https://playvalorant.com/" target="_blank" style="color:#ff3366">Valorant</a></h3>
+      <ul class="game-modes-list"><li><a href="https://tracker.gg/valorant/guides/crosshair-codes" target="_blank">Crosshair Customizer</a></li></ul>
+    </div>
+    </div>
+  </main>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<script>
+function openPopup(type) {
+  document.getElementById("popup-" + type).style.display = "flex";
+}
+function closePopup(type) {
+  document.getElementById("popup-" + type).style.display = "none";
+}
+function logout() {
+  localStorage.removeItem("loggedIn");
+  alert("Te-ai delogat!");
+}
+
+function toggleSupport() {
+  const panel = document.getElementById("supportPanel");
+  panel.style.display = panel.style.display === "block" ? "none" : "block";
+}
+function sendFeedback() {
+  document.getElementById("feedbackText").value = "";
+  document.getElementById("feedbackMessage").style.display = "block";
+  setTimeout(() => {
+    document.getElementById("feedbackMessage").style.display = "none";
+  }, 4000);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("registerForm")?.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const user = {
+      nume: document.getElementById("nume").value,
+      prenume: document.getElementById("prenume").value,
+      telefon: document.getElementById("telefon").value,
+      parola: document.getElementById("parola").value
+    };
+    localStorage.setItem("utilizator", JSON.stringify(user));
+    alert("Înregistrare reușită!");
+    closePopup("register");
+  });
+
+  document.getElementById("loginForm")?.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const tel = document.getElementById("telefon-login").value;
+    const pass = document.getElementById("parola-login").value;
+    const user = JSON.parse(localStorage.getItem("utilizator"));
+    if (user && tel === user.telefon && pass === user.parola) {
+      localStorage.setItem("loggedIn", "true");
+      alert("Logare reușită!");
+      closePopup("login");
+    } else {
+      alert("Date incorecte!");
+    }
+  });
+});
+</script>
+
+
+<div class="popup" id="popup-register">
+  <div class="popup-content neon-popup">
+    <span class="close" onclick="closePopup('register')">&times;</span>
+    <h2>Înregistrare</h2>
+    <form id="registerForm">
+      <input type="text" id="nume" placeholder="Nume" required>
+      <input type="text" id="prenume" placeholder="Prenume" required>
+      <input type="text" id="telefon" placeholder="Telefon (+373...)" required>
+      <input type="password" id="parola" placeholder="Parolă" required>
+      <button type="submit" class="btn-neon">Înregistrează-te</button>
+    </form>
+  </div>
+</div>
+
+
+<div class="popup" id="popup-login">
+  <div class="popup-content neon-popup">
+    <span class="close" onclick="closePopup('login')">&times;</span>
+    <h2>Logare</h2>
+    <form id="loginForm">
+      <input type="text" id="telefon-login" placeholder="Telefon" required>
+      <input type="password" id="parola-login" placeholder="Parolă" required>
+      <button type="submit" class="btn-neon">Loghează-te</button>
+    </form>
+  </div>
+</div>
+
+
+<div class="support-toggle" onclick="toggleSupport()">🛠 Suport</div>
+<div class="support-panel" id="supportPanel">
+  <h3>Trimite feedback</h3>
+  <textarea id="feedbackText" placeholder="Scrie un comentariu..."></textarea>
+  <button onclick="sendFeedback()">Trimite</button>
+  <p id="feedbackMessage" style="display:none;">Mulțumim! Vom răspunde în curând.</p>
+</div>
+
+</body>
+</html>
